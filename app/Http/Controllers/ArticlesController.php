@@ -7,4 +7,8 @@ use Illuminate\Http\Request;
 class ArticlesController extends Controller
 {
     //
+    public function add()
+    {
+        return view('categories.create');
+    }
 }

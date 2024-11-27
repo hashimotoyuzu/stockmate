@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ToppageController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('stockmate/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [ToppageController::class, 'index'])->name('toppage.index');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-use App\Http\Controllers\CategoriesController;
-Route::controller(CategoriesContr::class)->group(function() {
+Route::controller(CategoriesController::class)->group(function() {
     Route::get('stockmate', 'add');
     Route::get('stockmate', 'index');
     Route::get('stockmate', 'create');
@@ -33,5 +35,4 @@ Route::controller(CategoriesContr::class)->group(function() {
     Route::get('stockmate', 'new');
     Route::get('stockmate', 'destroy');
 });
-
 
