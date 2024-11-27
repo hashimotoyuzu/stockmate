@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Category;
+use App\Models\Article;
 
 class User extends Authenticatable
 {
@@ -40,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     // 1対多のアソシエーション
+    public function categoris()
+    {
+        return $this->hasMany(Category::class); // User は複数の Category を持つ
+    }
+    // 間接的な 1対多のアソシエーション
+    public function articles()
+    {
+        // User を通して Article を取得
+        return $this->hasManyThrough(Article::class, Category::class);
+    }
 }

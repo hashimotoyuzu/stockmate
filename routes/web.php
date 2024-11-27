@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToppageController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ArticlesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,17 @@ Route::controller(CategoriesController::class)->group(function() {
     Route::get('stockmate', 'show');
     Route::get('stockmate', 'new');
     Route::get('stockmate', 'destroy');
+});
+
+Route::controller(ArticlesController::class)->prefix('articles')->name('articles.')->middleware('auth')->group(function() {
+    Route::get('', 'index')->name('index');
+    // Route::get('stockmate', 'index');
+    // Route::get('stockmate', 'create');
+    // Route::get('stockmate', 'edit');
+    // Route::get('stockmate', 'update');
+    // Route::get('stockmate', 'new');
+    // Route::get('stockmate', 'show');
+    // Route::get('stockmate', 'new');
+    // Route::get('stockmate', 'destroy');
 });
 
