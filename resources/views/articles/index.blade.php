@@ -1,6 +1,10 @@
 @extends('layouts.common')
 @section('content')
 <div class="container">
+    <div class="row justify-content-center mb-2">
+        <h1 class="text-center text-primary">商品一覧</h1>
+    </div>    
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <table class="table table-bordered table-striped">
