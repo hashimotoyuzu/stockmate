@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto text-center">
-                <h2>StockMateへようこそ！</h2>
+                <h2>StockMateへようこそ!</h2>
             </div>
         </div>
         <div class="row justify-content-center">

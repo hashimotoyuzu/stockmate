@@ -16,9 +16,6 @@ use App\Http\Controllers\ArticlesController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/', [ToppageController::class, 'index'])->name('toppage.index');
 
 Auth::routes();
@@ -26,29 +23,5 @@ Auth::routes();
 Route::resource('categories', CategoriesController::class)->middleware('auth');
 Route::resource('articles', ArticlesController::class)->middleware('auth');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::controller(CategoriesController::class)->group(function() {
-//     Route::get('stockmate', 'add');
-//     Route::get('stockmate', 'index');
-//     Route::get('stockmate', 'create');
-//     Route::get('stockmate', 'edit');
-//     Route::get('stockmate', 'update');
-//     Route::get('stockmate', 'new');
-//     Route::get('stockmate', 'show');
-//     Route::get('stockmate', 'new');
-//     Route::get('stockmate', 'destroy');
-// });
-
-// Route::controller(ArticlesController::class)->prefix('articles')->name('articles.')->middleware('auth')->group(function() {
-//     Route::get('', 'index')->name('index');
-//     // Route::get('stockmate', 'index');
-//     // Route::get('stockmate', 'create');
-//     // Route::get('stockmate', 'edit');
-//     // Route::get('stockmate', 'update');
-//     // Route::get('stockmate', 'new');
-//     // Route::get('stockmate', 'show');
-//     // Route::get('stockmate', 'new');
-//     // Route::get('stockmate', 'destroy');
-// });
+Route::get('/', [CategoriesController::class, 'create'])->name('categories.create');
 
