@@ -23,5 +23,4 @@ Auth::routes();
 Route::resource('categories', CategoriesController::class)->middleware('auth');
 Route::resource('articles', ArticlesController::class)->middleware('auth');
 
-Route::get('/', [CategoriesController::class, 'create'])->name('categories.create');
 

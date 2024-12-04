@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
      // 1対多のアソシエーション
-    public function categoris()
+    public function categories()
     {
         return $this->hasMany(Category::class); // User は複数の Category を持つ
     }

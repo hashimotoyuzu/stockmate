@@ -3,65 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoriesController extends Controller
+{
 
-public function category(Request $request)
-{  
-    $request->validate([
-        'name' => 'required|max:20',
-        'xpiration' => 'required|integer',
-        'stock' => 'required|integer',
-        'memo' => 'required|max:140',
-    ]);
+    // カテゴリー新規投稿画面表示
+    public function create(Request $request){
+        return view('categories.create');
+    }
 
-    $category = new category;
-    $category -> name = $request->input(["name"]);
-    $category -> xpiration= $request->input(["xpiration"]);
-    $category -> stock= $request->input(["stock"]);
-    $category -> memo = $request->input(["memo"]);
-    $category ->save();
+    // カテゴリー追加処理
+    public function store(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'name' => 'required|max:20',
+        ]);
 
-    return redirect()->route('ctegories.index');
+        $category = new Category;
+        $category->user_id = \Auth::id();
+        $category->name = $request->name;
+
+        // カテゴリーをデータベースに保存
+        $category->save();
+
+        // 商品登録画面へリダイレクト
+        return redirect()->route('articles.create');
+    }
+
 }
-
-    public function add()
-    {
-        return view('category.create');
-    }
-
-    public function index()
-    {
-        return view('category.create');
-    }
-
-    public function create()
-    {
-        return redirect('category.create');
-    }
-
-    public function edit()
-    {
-        return view('category.create');
-    }
-
-    public function update()
-    {
-        return redirect('category.create');
-    }
-
-    public function new()
-    {
-        return redirect('category.create');
-    }
-
-    public function show()
-    {
-        return redirect('category.create');
-    }
-
-    public function destroy()
-    {
-        return redirect('category.create');
-    }
-
