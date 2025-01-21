@@ -21,7 +21,9 @@
                     <td class="text-center">{{ $article->category->name }}</td>
                     <td class="text-center">{{ $article->name }}</td>
                     <td class="text-center">{{ $article->stock }}</td>
-                    <td class="text-center">{{ $article->expiration_date }}</td>
+                    <td class="text-center">{{ $article->expiration_date }}
+                    <a class="btn btn-primary" href="{{ route('articles.edit', $article->id) }}">変更</a>
+                    </td>
                 </tr>
                 @endforeach
             </table>  
