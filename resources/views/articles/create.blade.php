@@ -9,6 +9,13 @@
     </div>   
     <div class="row container">
         <form action="{{ route('articles.store')}}" method="POST">
+        @if (count($errors) > 0)
+            <ul>
+                @foreach($errors->all() as $e)
+                     <li>{{ $e }}</li>
+                @endforeach
+            </ul>
+        @endif
             @csrf
             <div class="form-check-inline mb-1">
                 @foreach($categories as $category)
@@ -25,6 +32,9 @@
                     <div class="form-group">
                     <input type="text" name="name" class="form-control" placeholder="名前">
                     </div>
+                @error('name')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 </div>
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
