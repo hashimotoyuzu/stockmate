@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 
 class CategoriesController extends Controller
 {
@@ -18,7 +19,15 @@ class CategoriesController extends Controller
     {
         // バリデーション
         $request->validate([
-            'name' => 'required|max:20',
+            'name' => [
+                'required',
+                'max:50',
+                Rule::unique('categories')->where(function ($query) use ($request) {
+                    return $query->where('user_id', \Auth::id());
+                }),
+            ],
+        ], [
+            'name.unique' => 'その名前はすでに存在します。',
         ]);
 
         $category = new Category;

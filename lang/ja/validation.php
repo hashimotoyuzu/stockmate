@@ -166,6 +166,7 @@ return [
     */
 
     'attributes' => [
+        'category_id' => 'カテゴリー',
         'name' => '名前',
         'expiration_date' => '使用期限',
         'stock' => 'ストック'

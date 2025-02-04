@@ -49,6 +49,9 @@
                             <!-- Authentication Links -->
                             {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                             @auth
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('articles.search') }}">検索</a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ Auth::user()->account }} <span class="caret"></span>
@@ -74,5 +77,6 @@
                 @yield('content')
             </main>
         </div>
+        <script src="{{ asset('js/validation.js') }}"></script>
     </body>
 </html>

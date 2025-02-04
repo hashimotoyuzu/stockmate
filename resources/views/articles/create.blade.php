@@ -9,18 +9,21 @@
     </div>   
     <div class="row container">
         <form action="{{ route('articles.store')}}" method="POST">
-        @if (count($errors) > 0)
-            <ul>
+            @if (count($errors) > 0)
+                <ul class="alert alert-danger">
                 @foreach($errors->all() as $e)
-                     <li>{{ $e }}</li>
+                    <li>{{ $e }}</li>
                 @endforeach
-            </ul>
-        @endif
+                </ul>
+            @endif
             @csrf
             <div class="form-check-inline mb-1">
+                @error('category_id')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 @foreach($categories as $category)
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="category_id" id="category{{ $category->id }}" value="{{ $category->id }}">
+                <input class="form-check-input" type="radio" name="category_id" id="category{{ $category->id }}" value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'checked' : ''}}>
                     <label class="form-check-label" for="category{{ $category->id }}">
                     {{ $category->name }}
                     </label>
@@ -28,22 +31,28 @@
                 @endforeach
             </div>
             <div class="row">
-                <div class="col-12 mb-2 mt-2">
-                    <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="名前">
-                    </div>
                 @error('name')
                  <div class="error"><span>{{ $message }}</span></div>
                 @enderror
-                </div>
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
-                        <input type="date" name="expiration_date" class="form-control" placeholder="使用期限">
+                    <input type="text" name="name" class="form-control" placeholder="名前" value="{{ old('name') }}">
                     </div>
                 </div>
+                @error('expiration_date')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
-                        <input type="text" name="stock" class="form-control" placeholder="ストック">
+                    <input type="date" name="expiration_date" class="form-control" placeholder="使用期限" value="{{ old('expiration_date') }}">
+                    </div>
+                </div>
+                @error('stock')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
+                <div class="col-12 mb-2 mt-2">
+                    <div class="form-group">
+                        <input type="text" name="stock" class="form-control" placeholder="ストック" value="{{ old('stock') }}">
                     </div>
                 </div>
                 <div class="col-12 mb-2 mt-2">

@@ -46,3 +46,14 @@ body {
   border-color: #fff;
   background-color: #000;
 }
+
+ul li {
+  list-style: none;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+

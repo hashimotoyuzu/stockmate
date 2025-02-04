@@ -7,11 +7,22 @@
     </div> 
     <div class="row container">
         <form action="{{ route('categories.store')}}" method="POST">
+            @if (count($errors) > 0)
+                <ul class="alert alert-danger">
+                @foreach($errors->all() as $e)
+                    <li>{{ $e }}</li>
+                @endforeach
+                </ul>
+            @endif
             @csrf
             <div class="row">
                 <div class="col-12 mb-2 mt-2">
+                    <!-- @error('name')
+                    <div class="error"><span>{{ $message }}</span></div>
+                     @enderror -->
                     <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="名前">
+                    <p id="count"></p>
+                    <input type="text" name="name" class="form-control" placeholder="名前を50文字以内で入力してください" id="name">
                     </div>
                 </div>
                 <div class="col-12 mb-2 mt-2">

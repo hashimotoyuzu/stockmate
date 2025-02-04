@@ -20,6 +20,8 @@ Route::get('/', [ToppageController::class, 'index'])->name('toppage.index');
 
 Auth::routes();
 
+Route::get('articles/search', [ArticlesController::class, 'search'])->name('articles.search')->middleware('auth');
+Route::get('articles/select_articles', [ArticlesController::class, 'select_articles'])->name('articles.select_articles')->middleware('auth');
 Route::resource('categories', CategoriesController::class)->middleware('auth');
 Route::resource('articles', ArticlesController::class)->middleware('auth');
 

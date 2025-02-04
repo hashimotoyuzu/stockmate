@@ -6,13 +6,13 @@
     </div> 
     <div class="row container">
     <form action="{{ route('articles.update', ['article' => $article]) }}" method="POST">
-    @if (count($errors) > 0)
-            <ul>
+            @if (count($errors) > 0)
+                <ul class="alert alert-danger">
                 @foreach($errors->all() as $e)
-                     <li>{{ $e }}</li>
+                    <li>{{ $e }}</li>
                 @endforeach
-            </ul>
-        @endif
+                </ul>
+            @endif
             @csrf
             @method('PUT')
             <div class="form-check-inline mb-1">
@@ -27,17 +27,26 @@
                 @endforeach
             </div>
             <div class="row">
+                @error('name')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
                     <input type="text" name="name" class="form-control" placeholder="名前" 
                     value="{{ old('article') ? old('article') : $article->name }}">
                     </div>
                 </div>
+                @error('expiration_date')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
                     <input type="date" name="expiration_date" class="form-control" placeholder="使用期限" value="{{ old('expiration_date') ? old('expiration_date') : $article->expiration_date }}">
                     </div>
                 </div>
+                @error('stock')
+                 <div class="error"><span>{{ $message }}</span></div>
+                @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
                     <input type="text" name="stock" class="form-control" placeholder="ストック" value="{{ old('stock') ? old('stock') : $article->stock }}">
