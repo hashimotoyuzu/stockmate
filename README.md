@@ -1,64 +1,51 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# bbs_comment_mvc
+PHPフレームワークLaravelを使用した、持物管理サイトです。
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+親しみやすさを込めて、仲間や友達を意味する「mate」を使用し、**"stockmate"**と命名しました。
 
-## About Laravel
+食品や日用品、洋服などお好きなカテゴリーを作成し、在庫数などを登録することができます。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+登録した商品は検索、変更、削除をすることができます。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+それぞれの処理を行った際のflashmessageはJavaScriptを使用しています。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+登録した持物は、キーワード・カテゴリー・ストック数で検索ができるようになっており、and検索を採用しています。
 
-## Learning Laravel
+テーブルはusers、categories、articlesの3つで構成されています。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+レイアウトには簡便的に Bootstrapを使っています。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 技術要素
 
-## Laravel Sponsors
+- 開発環境 VSCode
+- Laravel Framework 9.52.20
+- JavaScript
+- mysql 
+- バージョン管理 Git/Github
+- デプロイ Heroku
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 機能一覧
 
-### Premium Partners
+- 新規登録・ログイン・ログアウト機能
+- 持物登録機能
+- 持物一覧表示機能
+- 持物編集・削除機能
+- 持物検索機能
+- 各種フラッシュメッセージ表示機能
+- 入力値に関するバリデーション機能
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+## エピソード
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+オリジナルポートフォリオとして初めて作成しました。
 
-## Code of Conduct
+現在は簡易的な持物管理サイトですが、日常的に使用しやすいように食品や日用品などはストックが切れそうになると、メールなどに通知してくれる機能の追加など今後も改良が可能と考えております。
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+ご意見がありましたらお知らせいただけますと幸いです。
 
-## Security Vulnerabilities
+| 名前   | Email     |
+| :-----: | :---------: |
+| Yuzu Hashimoto | you.zoo.0318@gmail.com |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 著者
+2025/02/11 Yuzu Hashimoto

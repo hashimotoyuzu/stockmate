@@ -33,7 +33,9 @@ class ArticlesController extends Controller
             'expiration_date' => 'required|date|after_or_equal:today',
             'stock' => 'required|integer',
         ], [
+        // 期限切れは登録しないため当日から未来日付限定に設定  
             'expiration_date.after_or_equal' => '日付は今日以降を指定してください。',
+        // 1以下や小数点表記は入力できないように設定    
             'stock.integer' => 'ストックは整数である必要があります。',
         ]);
         $article = new Article;
@@ -49,6 +51,7 @@ class ArticlesController extends Controller
         $article->save();
         // 商品一覧画面へリダイレクト
         return redirect()->route('articles.index')
+                        //flashmessageを表示
                         ->with('success', '商品名: ' . $article->name . 'を登録しました');
     }    
 
@@ -71,7 +74,7 @@ class ArticlesController extends Controller
             'expiration_date.after_or_equal' => '日付は今日以降を指定してください。',
             'stock.integer' => 'ストックは整数である必要があります。',
         ]);
-
+        // 指定idのレコードデータを出力
          $article = Article::find($id);
          $article->category_id = $request->category_id;
          $article->name = $request->name;
@@ -85,18 +88,21 @@ class ArticlesController extends Controller
          $article->save();
          // 商品一覧画面へリダイレクト
          return redirect()->route('articles.index')
+                        //flashmessageを表示
                         ->with('success','商品名: '.$article->name.'を更新しました');
      }    
-         //商品削除処理
+         // 商品削除処理
      public function destroy(Request $request, $id){
         $article = Article::find($id);
         $article->delete_flag = true;
         $article->save();
         return redirect()->route('articles.index')
+                        //flashmessageを表示
                         ->with('success', '商品名: ' . $article->name . 'を削除しました');
     }
-
+        // 商品検索処理
     public function search(Request $request){
+        // ログインしているユーザーが登録した商品から項目ごとに検索
         $categories = \Auth::user()->categories;
         $category_ids = [];
         $keyword = '';
@@ -120,6 +126,7 @@ class ArticlesController extends Controller
         // クエリビルダーで検索条件を動的に構築
         $query = Article::query()->whereHas('category', function ($query) {
             $query->where('user_id', \Auth()->id());
+        // 削除したものは表示しない  
         })->where('delete_flag', 0);
 
         if (!empty($keyword)) {
