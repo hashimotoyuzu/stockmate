@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center mb-2">
-        <h1 class="text-center text-primary">商品検索</h1>
+        <h1 class="text-center text-primary">持物検索</h1>
     </div> 
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-12 mb-2 mt-2">
                         <div class="form-group">
-                            <input type="number" name="stock" class="form-control" placeholder="ストック" value="{{ old('stock') ? old('stock') : $stock }}">
+                            <input type="number" name="stock" class="form-control" placeholder="在庫数" value="{{ old('stock') ? old('stock') : $stock }}">
                         </div>
                     </div>
                     <div class="form-check-inline mb-1">
@@ -52,7 +52,7 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <th class="text-center">カテゴリー名</th>
-                    <th class="text-center">商品名</th>
+                    <th class="text-center">持物名</th>
                     <th class="text-center">在庫数</th>
                     <th class="text-center">消費期限</th>
                     <th class="text-center">操作</th>

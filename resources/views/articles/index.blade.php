@@ -5,7 +5,7 @@
         <h1 class="text-center text-primary">登録一覧</h1>
     </div> 
     <div class="row mb-2 justify-content-center">
-        <a class="offset-md-10 col-md-2 btn btn-success" href="{{ route('articles.create')}}">持ち物登録</a>
+        <a class="offset-md-10 col-md-2 btn btn-success" href="{{ route('articles.create')}}">持物登録</a>
     </div> 
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -15,7 +15,7 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <th class="text-center">カテゴリー名</th>
-                    <th class="text-center">商品名</th>
+                    <th class="text-center">持物名</th>
                     <th class="text-center">在庫数</th>
                     <th class="text-center">消費期限</th>
                     <th class="text-center">操作</th>

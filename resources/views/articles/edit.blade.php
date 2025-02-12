@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center mb-2">
-        <h1 class="text-center text-primary">商品更新画面</h1>
+        <h1 class="text-center text-primary">持物更新画面</h1>
     </div> 
     <div class="row container">
     <form action="{{ route('articles.update', ['article' => $article]) }}" method="POST">
@@ -49,7 +49,7 @@
                 @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
-                        <input type="number" name="stock" class="form-control" placeholder="ストック" min="1" value="{{ old('stock') ? old('stock') : $article->stock }}">
+                        <input type="number" name="stock" class="form-control" placeholder="在庫数" min="1" value="{{ old('stock') ? old('stock') : $article->stock }}">
                     </div>
                 </div>
                 <div class="col-12 mb-2 mt-2">

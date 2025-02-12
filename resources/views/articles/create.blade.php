@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center mb-2">
-        <h1 class="text-center text-primary">持ち物登録</h1>
+        <h1 class="text-center text-primary">持物登録</h1>
     </div> 
     <div class="row mb-2 justify-content-center">
         <a class="offset-md-10 col-md-2 btn btn-success" href="{{ route('categories.create')}}">カテゴリー追加</a>
@@ -55,7 +55,7 @@
                 @enderror
                 <div class="col-12 mb-2 mt-2">
                     <div class="form-group">
-                        <input type="number" name="stock" class="form-control" min="1" placeholder="ストック" value="{{ old('stock') }}">
+                        <input type="number" name="stock" class="form-control" min="1" placeholder="在庫数" value="{{ old('stock') }}">
                     </div>
                 </div>
                 <div class="col-12 mb-2 mt-2">
