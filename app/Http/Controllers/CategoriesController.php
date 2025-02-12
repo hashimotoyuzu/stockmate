@@ -19,17 +19,20 @@ class CategoriesController extends Controller
     {
         // バリデーション
         $request->validate([
+            //カテゴリー名は必須、50文字以内指定
             'name' => [
                 'required',
                 'max:50',
+                //ログインしているユーザーが登録したカテゴリーに重複がないか
                 Rule::unique('categories')->where(function ($query) use ($request) {
                     return $query->where('user_id', \Auth::id());
                 }),
             ],
         ], [
+            //すでに登録済みのカテゴリーが入力されたら表示
             'name.unique' => 'その名前はすでに存在します。',
         ]);
-
+        //新規カテゴリーを作成
         $category = new Category;
         $category->user_id = \Auth::id();
         $category->name = $request->name;
@@ -38,7 +41,9 @@ class CategoriesController extends Controller
         $category->save();
 
         // カテゴリー登録画面へリダイレクト
-        return redirect()->route('articles.create')->with('success', 'カテゴリー名: ' . $category->name . 'を登録しました');;
+        return redirect()->route('articles.create')
+                        //フラッシュメッセージの設定
+                        ->with('success', 'カテゴリー名: ' . $category->name . 'を登録しました');;
     }
 
 }
