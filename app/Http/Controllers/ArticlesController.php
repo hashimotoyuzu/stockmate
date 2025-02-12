@@ -8,36 +8,40 @@ use App\Models\Category;
 
 class ArticlesController extends Controller
 {
-    // 商品一覧画面表示
+    // 持物一覧画面表示
     public function index(Request $request){
+        // ログインしているユーザーが登録した、削除していない持物一覧を使用期限の昇順に取得
         $articles = Article::whereHas('category', function ($query) {
             $query->where('user_id', auth()->id());
         })->where('delete_flag', false)->orderBy('expiration_date', 'asc')->get();
+
         return view('articles.index', ['articles' => $articles]);
     }
 
-    // 商品登録画面表示
+    // 持物登録画面表示
     public function create(Request $request){
         // ログインしているユーザーが追加したカテゴリー一覧を取得
         $categories = \Auth::user()->categories;
+        
         return view('articles.create', ['categories'=> $categories]);
     }
 
-    // 商品登録処理
+    // 持物登録処理
     public function store(Request $request)
     {  
         // バリデーション
         $request->validate([
             'category_id' => 'required',
             'name' => 'required|max:20',
-            'expiration_date' => 'required|date|after_or_equal:today',
+            'expiration_date' => 'required|date|after_or_equal:today', 
             'stock' => 'required|integer',
         ], [
-        // 期限切れは登録しないため当日から未来日付限定に設定  
+            // 期限切れは登録しないため当日から未来日付限定に設定  
             'expiration_date.after_or_equal' => '日付は今日以降を指定してください。',
-        // 1以下や小数点表記は入力できないように設定    
-            'stock.integer' => 'ストックは整数である必要があります。',
+            // 小数点は入力できないように設定    
+            'stock.integer' => '在庫数は整数である必要があります。',
         ]);
+        // 新規持物を作成
         $article = new Article;
         $article->category_id = $request->category_id;
         $article->name = $request->name;
@@ -47,62 +51,74 @@ class ArticlesController extends Controller
         if($request->memo !== null){
             $article->memo = $request->memo;
         }
-        // データベースに商品保存
+        // データベースに持物保存
         $article->save();
-        // 商品一覧画面へリダイレクト
+
+        // 持物一覧画面へリダイレクト
         return redirect()->route('articles.index')
-                        //flashmessageを表示
-                        ->with('success', '商品名: ' . $article->name . 'を登録しました');
+                        //フラッシュメッセージの設定
+                        ->with('success', '持物名: ' . $article->name . 'を登録しました');
     }    
 
-    // 登録商品変更画面表示
+    // 登録持物変更画面表示
     public function edit(Request $request, $id){
+        // 指定idの持物データを取得
         $article = Article::find($id);
+        // ログインしているユーザーが追加したカテゴリー一覧を取得
         $categories = \Auth::user()->categories;
+
         return view('articles.edit', ['article'=> $article, 'categories'=> $categories]);
     }
 
-     // 登録商品変更処理
-     public function update(Request $request, $id)
-     {  
-         // バリデーション
-         $request->validate([
+    // 登録持物変更処理
+    public function update(Request $request, $id)
+    {  
+        // バリデーション
+        $request->validate([
             'name' => 'required|max:20',
             'expiration_date' => 'required|date|after_or_equal:today',
             'stock' => 'required|integer',
         ], [
             'expiration_date.after_or_equal' => '日付は今日以降を指定してください。',
-            'stock.integer' => 'ストックは整数である必要があります。',
+            'stock.integer' => '在庫数は整数である必要があります。',
         ]);
-        // 指定idのレコードデータを出力
-         $article = Article::find($id);
-         $article->category_id = $request->category_id;
-         $article->name = $request->name;
-         $article->expiration_date= $request->expiration_date;
-         $article->stock = $request->stock;
-         // もし、メモが記入されていたら
-         if($request->memo !== null){
-             $article->memo = $request->memo;
-         }
-         // データベースに商品保存
-         $article->save();
-         // 商品一覧画面へリダイレクト
-         return redirect()->route('articles.index')
-                        //flashmessageを表示
-                        ->with('success','商品名: '.$article->name.'を更新しました');
-     }    
-         // 商品削除処理
-     public function destroy(Request $request, $id){
+
+        // 指定idの持物データを取得
         $article = Article::find($id);
-        $article->delete_flag = true;
+        // データ情報の更新
+        $article->category_id = $request->category_id;
+        $article->name = $request->name;
+        $article->expiration_date= $request->expiration_date;
+        $article->stock = $request->stock;
+        // もし、メモが記入されていたら
+        if($request->memo !== null){
+            $article->memo = $request->memo;
+        }
+        // データベースに持物保存
         $article->save();
+        // 持物一覧画面へリダイレクト
         return redirect()->route('articles.index')
-                        //flashmessageを表示
-                        ->with('success', '商品名: ' . $article->name . 'を削除しました');
+                    //フラッシュメッセージの設定
+                    ->with('success','持物名: '.$article->name.'を更新しました');
+    }    
+
+    // 持物削除処理
+     public function destroy(Request $request, $id){
+        // 指定idの持物データを取得
+        $article = Article::find($id);
+        // データベースの持物内容を更新
+        $article->delete_flag = true;
+        // データベースのレコード更新
+        $article->save();
+
+        return redirect()->route('articles.index')
+                        //フラッシュメッセージの設定
+                        ->with('success', '持物名: ' . $article->name . 'を削除しました');
     }
-        // 商品検索処理
+
+    // 持物検索画面表示
     public function search(Request $request){
-        // ログインしているユーザーが登録した商品から項目ごとに検索
+        // ログインしているユーザーが登録したカテゴリー一覧を取得
         $categories = \Auth::user()->categories;
         $category_ids = [];
         $keyword = '';
@@ -113,14 +129,16 @@ class ArticlesController extends Controller
         return view('articles.search', ['keyword' => $keyword, 'categories' =>  $categories, 'articles' => $articles, 'category_ids' => $category_ids, 'stock' => $stock, 'expiration_date' => $expiration_date]);
      }
 
+    // 持物検索処理 
     public function select_articles(Request $request)
     {
+        // 検索画面から入力された値を取得
         $keyword = $request->input('keyword', '');
         $stock = $request->input('stock', '');
         $category_ids = $request->input('categories', []);
         $expiration_date = $request->input('expiration_date');
 
-        // ログインしているユーザーが登録したカテゴリー一覧
+        // ログインしているユーザーが登録したカテゴリー一覧を取得
         $categories = \Auth::user()->categories;
 
         // クエリビルダーで検索条件を動的に構築
@@ -129,23 +147,29 @@ class ArticlesController extends Controller
         // 削除したものは表示しない  
         })->where('delete_flag', 0);
 
+        // 持物名が入力されていたら
         if (!empty($keyword)) {
             $query->where('name', 'LIKE', '%' . $keyword . '%');
         }
 
+        // カテゴリーが選択されていたら
         if (!empty($category_ids) && is_array($category_ids)) {
             $query->whereIn('category_id', $category_ids);
         }
 
+        // 在庫数が入力されていたら
         if (!empty($stock)) {
             $query->where('stock', $stock); 
         }
 
+        // 使用期限が入力されていたら
         if (!empty($expiration_date)) {
             $query->where('expiration_date', $expiration_date);
         }
 
+        // 検索の実行
         $articles = $query->get();
+
         return view('articles.search', [
             'keyword' => $keyword,
             'articles' => $articles,
