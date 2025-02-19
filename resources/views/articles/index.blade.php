@@ -12,6 +12,7 @@
             @if(session('success'))
             <div class="alert alert-success mt-1">{{ session('success') }}</div>
             @endif
+            @if(!$articles->isEmpty())
             <table class="table table-bordered table-striped">
                 <tr>
                     <th class="text-center">カテゴリー名</th>
@@ -45,7 +46,10 @@
                     </td>
                 </tr>
                 @endforeach
-            </table>  
+            </table> 
+            @else
+            <p class="text-center text-danger mt-2">現在、登録されている持物はありません</p>
+            @endif
         </div>          
     </div>
 </div>
